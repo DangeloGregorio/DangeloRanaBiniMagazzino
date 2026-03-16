@@ -8,6 +8,13 @@ package dangeloranabinimagazzino;
  *
  * @author ranasgalla.niccolo
  */
-public class Statistica {
+public class Statistica extends Prodotto {
+
+    public Statistica(int id, String nome, double prezzoA, double prezzoV, int scorta, int scortaMin, int proVenduti) {
+        super(id, nome, prezzoA, prezzoV, scorta, scortaMin, proVenduti);
+    }
     
+    public String prodottoPiuVenduto(){
+        
+    }
 }
