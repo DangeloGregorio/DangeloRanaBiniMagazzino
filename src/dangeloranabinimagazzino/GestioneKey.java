@@ -15,8 +15,8 @@ import java.io.PrintWriter;
  *
  * @author dangelo.gregorio
  */
-
 public class GestioneKey {
+
     private String nomeFile;
 
     public GestioneKey() {
@@ -35,28 +35,29 @@ public class GestioneKey {
         this.nomeFile = nomeFile;
     }
 
-    public void aggiungiRiga(int id, long posizione) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(nomeFile, true))) {
-            pw.println(id + ";" + posizione);
-        } catch (IOException e) {
-            System.out.println("errore scrittura indice: " + e.getMessage());
-        }
-    }
-
-    public long getPosizione(int id) {
+    public int posizione(int id) { 
         try (BufferedReader br = new BufferedReader(new FileReader(nomeFile))) {
             String riga;
             while ((riga = br.readLine()) != null) {
                 String[] parti = riga.split(";");
                 if (Integer.parseInt(parti[0]) == id) {
-                    return Long.parseLong(parti[1]);
+                    return Integer.parseInt(parti[1]);  
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("file indice non trovato.");
+            System.out.println("file della key non trovato.");
         } catch (IOException e) {
             System.out.println("errore lettura indice: " + e.getMessage());
         }
         return -1;
+    }
+    
+    
+    public void aggiungiRiga(int id, int posizione) { 
+        try (PrintWriter pw = new PrintWriter(new FileWriter(nomeFile, true))) {
+            pw.println(id + ";" + posizione);
+        } catch (IOException e) {
+            System.out.println("errore scrittura indice: " + e.getMessage());
+        }
     }
 }

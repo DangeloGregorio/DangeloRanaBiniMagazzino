@@ -21,14 +21,14 @@ public class GestioneProdotto {
     private GestioneKey gestioneKey;
 
     public GestioneProdotto() {
-        this.gestioneKey = new GestioneKey("indice.txt");
+        this.gestioneKey = new GestioneKey("key.txt");
 
     }
 
     public void scrivi(Prodotto p) {
         try (RandomAccessFile raf = new RandomAccessFile(nomeFile, "rw")) {
-            long posizione = raf.length(); // posizione in fondo al file
-            raf.seek(posizione);
+            int pos = (int) raf.length(); // posizione in fondo al file
+            raf.seek(pos);
 
             raf.writeInt(p.getId());
             scriviStringaFissa(raf, p.getNome());
@@ -38,20 +38,20 @@ public class GestioneProdotto {
             raf.writeInt(p.getScortaMin());
             raf.writeInt(p.getProVenduti());
 
-            gestioneKey.aggiungiRiga(p.getId(), posizione);
+            gestioneKey.aggiungiRiga(p.getId(), pos);
         } catch (IOException e) {
             System.out.println("errore scrittura: " + e.getMessage());
         }
     }
 
     public Prodotto leggi(int id) {
-        long posizione = gestioneKey.getPosizione(id);
-        if (posizione == -1) {
+        int pos = gestioneKey.posizione(id);
+        if (pos == -1) {
             System.out.println("prodotto non trovato.");
             return null;
         }
         try (RandomAccessFile raf = new RandomAccessFile(nomeFile, "r")) {
-            raf.seek(posizione); // salta direttamente al record!
+            raf.seek(pos); // salta direttamente al record
 
             int idLetto = raf.readInt();
             String nome = leggiStringaFissa(raf).trim();
@@ -70,10 +70,10 @@ public class GestioneProdotto {
 
     private void scriviStringaFissa(RandomAccessFile raf, String s) {
         try {
-            char[] chars = new char[lunghezzaNome];
-            java.util.Arrays.fill(chars, ' ');
-            s.getChars(0, Math.min(s.length(), lunghezzaNome), chars, 0);
-            for (char c : chars) {
+            char[] carattere = new char[lunghezzaNome];
+            java.util.Arrays.fill(carattere, ' ');
+            s.getChars(0, Math.min(s.length(), lunghezzaNome), carattere, 0);
+            for (char c : carattere) {
                 raf.writeChar(c);
             }
         } catch (IOException e) {
