@@ -92,4 +92,8 @@ public class GestioneProdotto {
         }
         return sb.toString();
     }
+    
+    public void leggiTutti(){
+        
+    }
 }
