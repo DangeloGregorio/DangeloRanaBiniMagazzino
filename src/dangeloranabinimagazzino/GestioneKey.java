@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.*;
 
 /**
  *
@@ -35,13 +36,13 @@ public class GestioneKey {
         this.nomeFile = nomeFile;
     }
 
-    public int posizione(int id) { 
+    public int posizione(int id) {
         try (BufferedReader br = new BufferedReader(new FileReader(nomeFile))) {
             String riga;
             while ((riga = br.readLine()) != null) {
                 String[] parti = riga.split(";");
                 if (Integer.parseInt(parti[0]) == id) {
-                    return Integer.parseInt(parti[1]);  
+                    return Integer.parseInt(parti[1]);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -51,13 +52,58 @@ public class GestioneKey {
         }
         return -1;
     }
-    
-    
-    public void aggiungiRiga(int id, int posizione) { 
+
+    public void aggiungiRiga(int id, int posizione) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(nomeFile, true))) {
             pw.println(id + ";" + posizione);
         } catch (IOException e) {
             System.out.println("errore scrittura indice: " + e.getMessage());
+        }
+    }
+
+    public void rimuoviRiga(int id) {
+        List<String> righe = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(nomeFile))) {
+            String riga;
+            while ((riga = br.readLine()) != null) {
+                String[] parti = riga.split(";");
+                if (Integer.parseInt(parti[0]) != id) {
+                    righe.add(riga);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("errore lettura key: " + e.getMessage());
+        }
+        try (PrintWriter pw = new PrintWriter(new FileWriter(nomeFile, false))) {
+            for (String r : righe) {
+                pw.println(r);
+            }
+        } catch (IOException e) {
+            System.out.println("errore scrittura key: " + e.getMessage());
+        }
+    }
+
+    public void aggiornaRiga(int id, int nuovaPos) {
+        List<String> righe = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(nomeFile))) {
+            String riga;
+            while ((riga = br.readLine()) != null) {
+                String[] parti = riga.split(";");
+                if (Integer.parseInt(parti[0]) == id) {
+                    righe.add(id + ";" + nuovaPos);
+                } else {
+                    righe.add(riga);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("errore lettura key: " + e.getMessage());
+        }
+        try (PrintWriter pw = new PrintWriter(new FileWriter(nomeFile, false))) {
+            for (String r : righe) {
+                pw.println(r);
+            }
+        } catch (IOException e) {
+            System.out.println("errore scrittura key: " + e.getMessage());
         }
     }
 }
