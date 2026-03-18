@@ -6,7 +6,7 @@ package dangeloranabinimagazzino;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
+import java.util.*;
 /**
  *
  * @author dangelo.gregorio
@@ -93,7 +93,24 @@ public class GestioneProdotto {
         return sb.toString();
     }
     
-    public void leggiTutti(){
-        
+    public List<Prodotto> leggiTutti() {
+        List<Prodotto> lista = new ArrayList<>();
+        try (RandomAccessFile raf = new RandomAccessFile(nomeFile, "r")) {
+            int numRecord = (int) raf.length() / dimRecord;
+            for (int i = 0; i < numRecord; i++) {
+                raf.seek(i * dimRecord);
+                int id = raf.readInt();
+                String nome = leggiStringaFissa(raf).trim();
+                double prezzoA = raf.readDouble();
+                double prezzoV = raf.readDouble();
+                int scorta = raf.readInt();
+                int scortaMin = raf.readInt();
+                int proVenduti = raf.readInt();
+                lista.add(new Prodotto(id, nome, prezzoA, prezzoV, scorta, scortaMin, proVenduti));
+            }
+        } catch (IOException e) {
+            System.out.println("errore lettura tutti: " + e.getMessage());
+        }
+        return lista;
     }
 }

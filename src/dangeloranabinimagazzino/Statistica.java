@@ -17,7 +17,7 @@ public class Statistica extends Prodotto {
     
     public String prodottoPiuVenduto() {
         GestioneProdotto gp = new GestioneProdotto();
-        List<Prodotto> lista =
+        List<Prodotto> lista = gp.leggiTutti();
 
         if (lista.isEmpty()) {
             return "Nessun prodotto trovato.";
