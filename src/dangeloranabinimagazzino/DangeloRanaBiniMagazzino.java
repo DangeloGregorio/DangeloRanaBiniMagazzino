@@ -14,7 +14,8 @@ public class DangeloRanaBiniMagazzino {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        FrameMagazzino f = new FrameMagazzino();
+        f.setVisible(true);
     }
     
 }
