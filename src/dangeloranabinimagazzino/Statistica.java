@@ -15,12 +15,12 @@ public class Statistica extends Prodotto {
         super(id, nome, prezzoA, prezzoV, scorta, scortaMin, proVenduti);
     }
     
-    public String prodottoPiuVenduto() {
+    public int prodottoPiuVenduto() {
         GestioneProdotto gp = new GestioneProdotto();
         List<Prodotto> lista = gp.leggiTutti();
 
         if (lista.isEmpty()) {
-            return "Nessun prodotto trovato.";
+            return 0;
         }
 
         Prodotto miglior = lista.get(0);
@@ -30,8 +30,96 @@ public class Statistica extends Prodotto {
             }
         }
 
-        return "Prodotto più venduto: " + miglior.getNome()
-                + " (ID: " + miglior.getId()
-                + ", venduti: " + miglior.getProVenduti() + ")";
+        return miglior.getId();
+    }
+    
+   public int prodottoPiuCostoso(){
+       GestioneProdotto gp = new GestioneProdotto();
+       List<Prodotto> lista = gp.leggiTutti();
+       
+       if (lista.isEmpty()) {
+            return 0;
+        }
+       
+        Prodotto costoso = lista.get(0);
+        for (Prodotto p : lista) {
+            if (p.getPrezzoV() > costoso.getPrezzoV()) {
+                costoso.setPrezzoV(p.getPrezzoV());
+            }
+        }
+        
+        return costoso.getId();
+    }
+
+    public int prodottoPiuEconomico() {
+        GestioneProdotto gp = new GestioneProdotto();
+        List<Prodotto> lista = gp.leggiTutti();
+
+        if (lista.isEmpty()) {
+            return 0;
+        }
+
+        Prodotto Economico = lista.get(0);
+        for (Prodotto p : lista) {
+            if (p.getPrezzoV() < Economico.getPrezzoV()) {
+                Economico.setPrezzoV(p.getPrezzoV());
+            }
+        }
+
+        return Economico.getId();
+    }
+
+    public int prodottoMenoVenduto() {
+        GestioneProdotto gp = new GestioneProdotto();
+        List<Prodotto> lista = gp.leggiTutti();
+
+        if (lista.isEmpty()) {
+            return 0;
+        }
+
+        Prodotto peggiore = lista.get(0);
+        for (Prodotto p : lista) {
+            if (p.getProVenduti() < peggiore.getProVenduti()) {
+                peggiore = p;
+            }
+        }
+
+        return peggiore.getId();
+    }
+
+    public int prodottoPiuScorta() {
+        GestioneProdotto gp = new GestioneProdotto();
+        List<Prodotto> lista = gp.leggiTutti();
+
+        if (lista.isEmpty()) {
+            return 0;
+        }
+
+        Prodotto scorta = lista.get(0);
+        for (Prodotto p : lista) {
+            if (p.getScorta() > scorta.getScorta()) {
+                scorta = p;
+            }
+        }
+
+        return scorta.getId();
+    }
+    
+    public int prodottoMenoScorta() {
+        GestioneProdotto gp = new GestioneProdotto();
+        List<Prodotto> lista = gp.leggiTutti();
+
+        if (lista.isEmpty()) {
+            return 0;
+        }
+
+        Prodotto scorta = lista.get(0);
+        for (Prodotto p : lista) {
+            if (p.getScorta() < scorta.getScorta()) {
+                scorta = p;
+            }
+        }
+
+        return scorta.getId();
     }
 }
