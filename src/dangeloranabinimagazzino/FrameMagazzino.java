@@ -28,31 +28,80 @@ public class FrameMagazzino extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtId = new javax.swing.JTextField();
-        txtId1 = new javax.swing.JTextField();
-        txtId2 = new javax.swing.JTextField();
-        txtId3 = new javax.swing.JTextField();
-        txtId4 = new javax.swing.JTextField();
+        cmbProdotti = new javax.swing.JComboBox<>();
+        btnRimuoviScorta = new javax.swing.JButton();
+        btnRimuovi = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        txtScorta = new javax.swing.JTextField();
+        btnStatistica1 = new javax.swing.JButton();
+        btnAggiungiScorta = new javax.swing.JButton();
+        cmbProdotti1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtId.setText("jTextField1");
-        getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 130, -1));
+        cmbProdotti.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(cmbProdotti, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 250, -1));
 
-        txtId1.setText("jTextField1");
-        getContentPane().add(txtId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 130, -1));
+        btnRimuoviScorta.setText("Rimuovi");
+        getContentPane().add(btnRimuoviScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 90, 30));
 
-        txtId2.setText("jTextField1");
-        getContentPane().add(txtId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 130, -1));
+        btnRimuovi.setText("Rimuovi");
+        getContentPane().add(btnRimuovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 190, 30));
 
-        txtId3.setText("jTextField1");
-        getContentPane().add(txtId3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 130, -1));
+        jTextArea1.setBackground(new java.awt.Color(4, 8, 72));
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
-        txtId4.setText("jTextField1");
-        getContentPane().add(txtId4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 130, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 460, 310));
 
+        txtScorta.setForeground(new java.awt.Color(153, 153, 153));
+        txtScorta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtScorta.setText("Scorta...");
+        txtScorta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtScortaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtScortaFocusLost(evt);
+            }
+        });
+        getContentPane().add(txtScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 70, 30));
+
+        btnStatistica1.setText("Statistica");
+        getContentPane().add(btnStatistica1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 190, 30));
+
+        btnAggiungiScorta.setText("Aggiungi");
+        getContentPane().add(btnAggiungiScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 90, 30));
+
+        cmbProdotti1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(cmbProdotti1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 190, 20));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("STATISTICHE");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 120, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("PRODOTTO");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 170, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("AGGIUNGI E VENDI SCORTE");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 210, -1));
+
+        sfondo.setForeground(new java.awt.Color(255, 255, 255));
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dangeloranabinimagazzino/sfondo.jpg"))); // NOI18N
         sfondo.setFocusable(false);
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -60,37 +109,35 @@ public class FrameMagazzino extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+    private void txtScortaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtScortaFocusGained
+        if (txtScorta.getText().equals("Scorta...")) {
+            txtScorta.setText("");
+            txtScorta.setForeground(java.awt.Color.BLACK); // Colore testo normale
         }
-        //</editor-fold>
+    }//GEN-LAST:event_txtScortaFocusGained
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrameMagazzino().setVisible(true));
-    }
+    private void txtScortaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtScortaFocusLost
+        if (txtScorta.getText().isEmpty()) {
+            txtScorta.setForeground(java.awt.Color.GRAY); // Colore effetto suggerimento
+            txtScorta.setText("Scorta...");
+        }
+    }//GEN-LAST:event_txtScortaFocusLost
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAggiungiScorta;
+    private javax.swing.JButton btnRimuovi;
+    private javax.swing.JButton btnRimuoviScorta;
+    private javax.swing.JButton btnStatistica1;
+    private javax.swing.JComboBox<String> cmbProdotti;
+    private javax.swing.JComboBox<String> cmbProdotti1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel sfondo;
-    private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtId1;
-    private javax.swing.JTextField txtId2;
-    private javax.swing.JTextField txtId3;
-    private javax.swing.JTextField txtId4;
+    private javax.swing.JTextField txtScorta;
     // End of variables declaration//GEN-END:variables
 }
