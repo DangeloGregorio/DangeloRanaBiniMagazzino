@@ -104,6 +104,7 @@ public class FrameMagazzino extends javax.swing.JFrame {
 
         txtArea.setBackground(new java.awt.Color(4, 8, 72));
         txtArea.setColumns(20);
+        txtArea.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtArea.setForeground(new java.awt.Color(255, 255, 255));
         txtArea.setRows(5);
         jScrollPane1.setViewportView(txtArea);
@@ -161,6 +162,7 @@ public class FrameMagazzino extends javax.swing.JFrame {
 
         sfondo.setForeground(new java.awt.Color(255, 255, 255));
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dangeloranabinimagazzino/sfondo.jpg"))); // NOI18N
+        sfondo.setAutoscrolls(true);
         sfondo.setFocusable(false);
         getContentPane().add(sfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 

@@ -7,6 +7,7 @@ package dangeloranabinimagazzino;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.*;
+
 /**
  *
  * @author dangelo.gregorio
@@ -92,7 +93,38 @@ public class GestioneProdotto {
         }
         return sb.toString();
     }
-    
+
+    public void rimuovi(int id) {
+        // Legge tutti i prodotti, esclude quello con l'id da rimuovere,
+        // riscrive il file e aggiorna la key
+        List<Prodotto> lista = leggiTutti();
+
+        try (RandomAccessFile raf = new RandomAccessFile(nomeFile, "rw")) {
+            raf.setLength(0); // svuota il file
+            gestioneKey.rimuoviRiga(id); // rimuove dalla key
+
+            for (Prodotto p : lista) {
+                if (p.getId() == id) {
+                    continue; // salta il prodotto da rimuovere
+                }
+                int pos = (int) raf.length();
+                raf.seek(pos);
+
+                raf.writeInt(p.getId());
+                scriviStringaFissa(raf, p.getNome());
+                raf.writeDouble(p.getPrezzoA());
+                raf.writeDouble(p.getPrezzoV());
+                raf.writeInt(p.getScorta());
+                raf.writeInt(p.getScortaMin());
+                raf.writeInt(p.getProVenduti());
+
+                gestioneKey.aggiornaRiga(p.getId(), pos);
+            }
+        } catch (IOException e) {
+            System.out.println("errore rimozione: " + e.getMessage());
+        }
+    }
+
     public List<Prodotto> leggiTutti() {
         List<Prodotto> lista = new ArrayList<>();
         try (RandomAccessFile raf = new RandomAccessFile(nomeFile, "r")) {
