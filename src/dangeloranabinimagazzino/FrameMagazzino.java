@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package dangeloranabinimagazzino;
-
+import java.util.List;
 /**
  *
  * @author dangelo.gregorio
@@ -12,11 +12,53 @@ public class FrameMagazzino extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameMagazzino.class.getName());
 
+    private GestioneProdotto gp;
+    private GestioneKey k;
     /**
      * Creates new form FrameMagazzino
      */
     public FrameMagazzino() {
         initComponents();
+        gp = new GestioneProdotto();
+        k = new GestioneKey();
+        caricaProdotti();
+    }
+
+    private void caricaProdotti(){
+        List <Prodotto> prodotti = gp.leggiTutti();
+        cmbProdotti.removeAllItems();
+        for(Prodotto p : prodotti){
+            String voce = p.getId() + " - " + p.getNome();
+            cmbProdotti.addItem(voce);
+        }
+    }
+    
+    private void mostraStatistica() {
+        String selezionato = (String) cmbProdotti.getSelectedItem();
+        if (selezionato == null) {
+            return;
+        }
+
+        int id = Integer.parseInt(selezionato.split(" - ")[0]);
+        Prodotto p = gp.leggi(id);
+        if (p == null) {
+            return;
+        }
+
+        String testo
+                = "=== DATI PRODOTTO ===" + "\n"
+                + "Nome: " + p.getNome() + "\n"
+                + "Prezzo acquisto: " + p.getPrezzoA() + " €\n"
+                + "Prezzo vendita: " + p.getPrezzoV() + " €\n"
+                + "Scorta: " + p.getScorta() + "\n"
+                + "Scorta minima: " + p.getScortaMin() + "\n"
+                + "Prodotti venduti:" + p.getProVenduti() + "\n";
+
+        txtArea.setText(testo);
+    }
+    
+    private void rimuoviProdotto(){
+        
     }
 
     /**
@@ -28,36 +70,43 @@ public class FrameMagazzino extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmbProdotti = new javax.swing.JComboBox<>();
+        cmbStatistiche = new javax.swing.JComboBox<>();
         btnRimuoviScorta = new javax.swing.JButton();
         btnRimuovi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtArea = new javax.swing.JTextArea();
         txtScorta = new javax.swing.JTextField();
         btnStatistica1 = new javax.swing.JButton();
         btnAggiungiScorta = new javax.swing.JButton();
-        cmbProdotti1 = new javax.swing.JComboBox<>();
+        cmbProdotti = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cmbProdotti.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbProdotti, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 250, -1));
+        cmbStatistiche.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(cmbStatistiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 250, -1));
 
         btnRimuoviScorta.setText("Rimuovi");
         getContentPane().add(btnRimuoviScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 90, 30));
 
         btnRimuovi.setText("Rimuovi");
+        btnRimuovi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRimuoviActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRimuovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 190, 30));
 
-        jTextArea1.setBackground(new java.awt.Color(4, 8, 72));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtArea.setBackground(new java.awt.Color(4, 8, 72));
+        txtArea.setColumns(20);
+        txtArea.setForeground(new java.awt.Color(255, 255, 255));
+        txtArea.setRows(5);
+        jScrollPane1.setViewportView(txtArea);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 460, 310));
 
@@ -75,13 +124,22 @@ public class FrameMagazzino extends javax.swing.JFrame {
         getContentPane().add(txtScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 70, 30));
 
         btnStatistica1.setText("Statistica");
+        btnStatistica1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatistica1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnStatistica1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 190, 30));
 
         btnAggiungiScorta.setText("Aggiungi");
         getContentPane().add(btnAggiungiScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 90, 30));
 
-        cmbProdotti1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbProdotti1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 190, 20));
+        cmbProdotti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProdottiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmbProdotti, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 190, 20));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,6 +181,21 @@ public class FrameMagazzino extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtScortaFocusLost
 
+    private void cmbProdottiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProdottiActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cmbProdottiActionPerformed
+
+    private void btnStatistica1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatistica1ActionPerformed
+        // TODO add your handling code here:
+        mostraStatistica();
+    }//GEN-LAST:event_btnStatistica1ActionPerformed
+
+    private void btnRimuoviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnRimuoviActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -131,13 +204,13 @@ public class FrameMagazzino extends javax.swing.JFrame {
     private javax.swing.JButton btnRimuoviScorta;
     private javax.swing.JButton btnStatistica1;
     private javax.swing.JComboBox<String> cmbProdotti;
-    private javax.swing.JComboBox<String> cmbProdotti1;
+    private javax.swing.JComboBox<String> cmbStatistiche;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel sfondo;
+    private javax.swing.JTextArea txtArea;
     private javax.swing.JTextField txtScorta;
     // End of variables declaration//GEN-END:variables
 }
