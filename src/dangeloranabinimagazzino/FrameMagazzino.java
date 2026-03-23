@@ -56,11 +56,42 @@ public class FrameMagazzino extends javax.swing.JFrame {
 
         txtArea.setText(testo);
     }
-    
-    private void rimuoviProdotto(){
-        
-    }
 
+    private void rimuoviProdotto() {
+        String selezionato = (String) cmbProdotti.getSelectedItem();
+        if (selezionato == null) {
+            return;
+        }
+
+        int id = Integer.parseInt(selezionato.split(" - ")[0]);
+
+        int conferma = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "Vuoi rimuovere il prodotto:\n" + selezionato + "?",
+                "Conferma rimozione",
+                javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (conferma == javax.swing.JOptionPane.YES_OPTION) {
+            gp.rimuovi(id);
+            caricaProdotti();
+            txtArea.setText("Prodotto rimosso con successo.");
+            txtArea.setForeground(java.awt.Color.WHITE);
+        }
+    }
+    
+    private void aggiungiScorta(int n){
+        String selezionato = (String) cmbProdotti.getSelectedItem();
+        if (selezionato == null) {
+            return;
+        }
+
+        int id = Integer.parseInt(selezionato.split(" - ")[0]);
+        Prodotto p = gp.leggi(id);
+        p.setScorta(n);
+        
+        txtArea.setText("Scorta aggiunta");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,6 +164,11 @@ public class FrameMagazzino extends javax.swing.JFrame {
         getContentPane().add(btnStatistica1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 190, 30));
 
         btnAggiungiScorta.setText("Aggiungi");
+        btnAggiungiScorta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAggiungiScortaActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAggiungiScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 90, 30));
 
         cmbProdotti.addActionListener(new java.awt.event.ActionListener() {
@@ -195,8 +231,15 @@ public class FrameMagazzino extends javax.swing.JFrame {
 
     private void btnRimuoviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviActionPerformed
         // TODO add your handling code here:
-        
+        rimuoviProdotto();
     }//GEN-LAST:event_btnRimuoviActionPerformed
+
+    private void btnAggiungiScortaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggiungiScortaActionPerformed
+        // TODO add your handling code here:
+        String testo = txtScorta.getText();
+        int n = Integer.parseInt(testo);
+        aggiungiScorta(n);
+    }//GEN-LAST:event_btnAggiungiScortaActionPerformed
 
     
 
