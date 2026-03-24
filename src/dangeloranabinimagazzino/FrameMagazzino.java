@@ -89,8 +89,12 @@ public class FrameMagazzino extends javax.swing.JFrame {
         int id = Integer.parseInt(selezionato.split(" - ")[0]);
         Prodotto p = gp.leggi(id);
         p.setScorta(n);
-        
+
         txtArea.setText("Scorta aggiunta");
+    }
+    
+    private void rimuoviScorta(int n){
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
