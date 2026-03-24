@@ -9,11 +9,12 @@ package dangeloranabinimagazzino;
  * @author ranasgalla.niccolo
  */
 public class FrameProdotto extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrameProdotto.class.getName());
 
     private GestioneProdotto gp;
     private GestioneKey k;
+
     /**
      * Creates new form FrameProdotto
      */
@@ -21,6 +22,37 @@ public class FrameProdotto extends javax.swing.JFrame {
         initComponents();
         gp = new GestioneProdotto();
         k = new GestioneKey();
+    }
+
+    private void btnCaricaActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            String nome = txtNome.getText().trim();
+            double prezzoA = Double.parseDouble(txtPrezzoA.getText());
+            double prezzoV = Double.parseDouble(txtPrezzoV.getText());
+            int scorta = Integer.parseInt(txtScorta.getText());
+            int scortaMin = Integer.parseInt(txtScortaMin.getText());
+
+            int nuovoId = k.getNuovoId();
+
+            Prodotto p = new Prodotto(nuovoId, nome, prezzoA, prezzoV, scorta, scortaMin, 0);
+            gp.scrivi(p);
+
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Prodotto caricato con successo!\nID assegnato: " + nuovoId,
+                    "Successo", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+            // Pulisce i campi dopo il salvataggio
+            txtNome.setText("");
+            txtPrezzoA.setText("");
+            txtPrezzoV.setText("");
+            txtScorta.setText("");
+            txtScortaMin.setText("");
+
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Errore: inserisci valori numerici validi.",
+                    "Errore", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -93,7 +125,7 @@ public class FrameProdotto extends javax.swing.JFrame {
         int scorta = Integer.parseInt(num);
         num = txtScortaMin.getText();
         int scortaMin = Integer.parseInt(num);
-        
+
     }//GEN-LAST:event_btnCaricaActionPerformed
 
     /**
