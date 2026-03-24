@@ -80,7 +80,7 @@ public class FrameMagazzino extends javax.swing.JFrame {
         }
     }
     
-    private void aggiungiScorta(int n){
+    private void aggiungiScorta(int n) {
         String selezionato = (String) cmbProdotti.getSelectedItem();
         if (selezionato == null) {
             return;
@@ -88,13 +88,39 @@ public class FrameMagazzino extends javax.swing.JFrame {
 
         int id = Integer.parseInt(selezionato.split(" - ")[0]);
         Prodotto p = gp.leggi(id);
-        p.setScorta(n);
+        if (p == null) {
+            return;
+        }
 
-        txtArea.setText("Scorta aggiunta");
+        p.setScorta(p.getScorta() + n);
+        gp.aggiorna(p);
+        txtArea.setText("Scorta aggiunta. "+"\n"
+                + "Nuova scorta: " + p.getScorta());
     }
-    
-    private void rimuoviScorta(int n){
+
+    private void rimuoviScorta(int n) {
+        String selezionato = (String) cmbProdotti.getSelectedItem();
+        if (selezionato == null) {
+            return;
+        }
+
+        int id = Integer.parseInt(selezionato.split(" - ")[0]);
+        Prodotto p = gp.leggi(id);
+        if (p == null) {
+            return;
+        }
         
+        if (p.getScorta() - n < p.getScortaMin()) {
+            txtArea.setText("la scorta non può scendere"+"\n"
+                    + "sotto la scorta minima (" + p.getScortaMin() + ").");
+            return;
+        }
+
+        p.setScorta(p.getScorta() - n);
+        p.setProVenduti(p.getProVenduti() + n);
+        gp.aggiorna(p);                
+        txtArea.setText("scorta rimossa. "
+                + "Nuova scorta: " + p.getScorta());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,6 +143,7 @@ public class FrameMagazzino extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -124,9 +151,14 @@ public class FrameMagazzino extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbStatistiche.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbStatistiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 250, -1));
+        getContentPane().add(cmbStatistiche, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 412, 260, -1));
 
         btnRimuoviScorta.setText("Rimuovi");
+        btnRimuoviScorta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRimuoviScortaActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRimuoviScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 90, 30));
 
         btnRimuovi.setText("Rimuovi");
@@ -139,7 +171,7 @@ public class FrameMagazzino extends javax.swing.JFrame {
 
         txtArea.setBackground(new java.awt.Color(4, 8, 72));
         txtArea.setColumns(20);
-        txtArea.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtArea.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
         txtArea.setForeground(new java.awt.Color(255, 255, 255));
         txtArea.setRows(5);
         jScrollPane1.setViewportView(txtArea);
@@ -185,8 +217,8 @@ public class FrameMagazzino extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("STATISTICHE");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 120, -1));
+        jLabel1.setText("FILTRI");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 410, 100, 20));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -199,6 +231,9 @@ public class FrameMagazzino extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("AGGIUNGI E VENDI SCORTE");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 210, -1));
+
+        jButton1.setText("Cerca");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, 260, 30));
 
         sfondo.setForeground(new java.awt.Color(255, 255, 255));
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dangeloranabinimagazzino/sfondo.jpg"))); // NOI18N
@@ -245,6 +280,13 @@ public class FrameMagazzino extends javax.swing.JFrame {
         aggiungiScorta(n);
     }//GEN-LAST:event_btnAggiungiScortaActionPerformed
 
+    private void btnRimuoviScortaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRimuoviScortaActionPerformed
+        // TODO add your handling code here:
+        String testo = txtScorta.getText();
+        int n = Integer.parseInt(testo);
+        rimuoviScorta(n);
+    }//GEN-LAST:event_btnRimuoviScortaActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,6 +296,7 @@ public class FrameMagazzino extends javax.swing.JFrame {
     private javax.swing.JButton btnStatistica1;
     private javax.swing.JComboBox<String> cmbProdotti;
     private javax.swing.JComboBox<String> cmbStatistiche;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -124,6 +124,26 @@ public class GestioneProdotto {
             System.out.println("errore rimozione: " + e.getMessage());
         }
     }
+    
+    public void aggiorna(Prodotto p) {
+    int pos = gestioneKey.posizione(p.getId());
+    if (pos == -1) {
+        System.out.println("prodotto non trovato per aggiornamento.");
+        return;
+    }
+    try (RandomAccessFile raf = new RandomAccessFile(nomeFile, "rw")) {
+        raf.seek(pos);
+        raf.writeInt(p.getId());
+        scriviStringaFissa(raf, p.getNome());
+        raf.writeDouble(p.getPrezzoA());
+        raf.writeDouble(p.getPrezzoV());
+        raf.writeInt(p.getScorta());
+        raf.writeInt(p.getScortaMin());
+        raf.writeInt(p.getProVenduti());
+    } catch (IOException e) {
+        System.out.println("errore aggiornamento: " + e.getMessage());
+    }
+}
 
     public List<Prodotto> leggiTutti() {
         List<Prodotto> lista = new ArrayList<>();
