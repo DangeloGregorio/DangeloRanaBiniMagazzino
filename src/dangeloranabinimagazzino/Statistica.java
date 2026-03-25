@@ -33,21 +33,20 @@ public class Statistica extends Prodotto {
         return miglior.getId();
     }
     
-   public int prodottoPiuCostoso(){
-       GestioneProdotto gp = new GestioneProdotto();
-       List<Prodotto> lista = gp.leggiTutti();
-       
-       if (lista.isEmpty()) {
+    public int prodottoPiuCostoso() {
+        GestioneProdotto gp = new GestioneProdotto();
+        List<Prodotto> lista = gp.leggiTutti();
+
+        if (lista.isEmpty()) {
             return 0;
         }
-       
+
         Prodotto costoso = lista.get(0);
         for (Prodotto p : lista) {
             if (p.getPrezzoV() > costoso.getPrezzoV()) {
-                costoso.setPrezzoV(p.getPrezzoV());
+                costoso = p; 
             }
         }
-        
         return costoso.getId();
     }
 
@@ -59,15 +58,14 @@ public class Statistica extends Prodotto {
             return 0;
         }
 
-        Prodotto Economico = lista.get(0);
+        Prodotto economico = lista.get(0);
         for (Prodotto p : lista) {
-            if (p.getPrezzoV() < Economico.getPrezzoV()) {
-                Economico.setPrezzoV(p.getPrezzoV());
+            if (p.getPrezzoV() < economico.getPrezzoV()) {
+                economico = p; 
             }
         }
-
-        return Economico.getId();
-    }
+        return economico.getId();
+}
 
     public int prodottoMenoVenduto() {
         GestioneProdotto gp = new GestioneProdotto();
@@ -95,17 +93,16 @@ public class Statistica extends Prodotto {
             return 0;
         }
 
-        Prodotto scorta = lista.get(0);
+        Prodotto massimo = lista.get(0);
         for (Prodotto p : lista) {
-            if (p.getScorta() > scorta.getScorta()) {
-                scorta = p;
+            if (p.getScorta() > massimo.getScorta()) {
+                massimo = p;
             }
         }
-
-        return scorta.getId();
+        return massimo.getId();
     }
     
-    public int prodottoMenoScorta() {
+   public int prodottoMenoScorta() {
         GestioneProdotto gp = new GestioneProdotto();
         List<Prodotto> lista = gp.leggiTutti();
 
@@ -113,13 +110,12 @@ public class Statistica extends Prodotto {
             return 0;
         }
 
-        Prodotto scorta = lista.get(0);
+        Prodotto minimo = lista.get(0);
         for (Prodotto p : lista) {
-            if (p.getScorta() < scorta.getScorta()) {
-                scorta = p;
+            if (p.getScorta() < minimo.getScorta()) {
+                minimo = p;
             }
         }
-
-        return scorta.getId();
+        return minimo.getId();
     }
 }

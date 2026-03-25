@@ -22,6 +22,15 @@ public class FrameMagazzino extends javax.swing.JFrame {
         gp = new GestioneProdotto();
         k = new GestioneKey();
         caricaProdotti();
+
+        // Popola la combo delle statistiche
+        cmbStatistiche.removeAllItems();
+        cmbStatistiche.addItem("Prodotto più venduto");
+        cmbStatistiche.addItem("Prodotto meno venduto");
+        cmbStatistiche.addItem("Prodotto più costoso");
+        cmbStatistiche.addItem("Prodotto più economico");
+        cmbStatistiche.addItem("Prodotto con più scorta");
+        cmbStatistiche.addItem("Prodotto con meno scorta");
     }
 
     private void caricaProdotti(){
@@ -122,6 +131,55 @@ public class FrameMagazzino extends javax.swing.JFrame {
         txtArea.setText("scorta rimossa. "
                 + "Nuova scorta: " + p.getScorta());
     }
+    
+    private void cerca() {
+        String filtro = (String) cmbStatistiche.getSelectedItem();
+        if (filtro == null) {
+            return;
+        }
+
+        Statistica s = new Statistica(0, "", 0, 0, 0, 0, 0);
+        int id = 0;
+
+        switch (filtro) {
+            case "Prodotto più venduto":
+                id = s.prodottoPiuVenduto();
+                break;
+            case "Prodotto meno venduto":
+                id = s.prodottoMenoVenduto();
+                break;
+            case "Prodotto più costoso":
+                id = s.prodottoPiuCostoso();
+                break;
+            case "Prodotto più economico":
+                id = s.prodottoPiuEconomico();
+                break;
+            case "Prodotto con più scorta":
+                id = s.prodottoPiuScorta();
+                break;
+            case "Prodotto con meno scorta":
+                id = s.prodottoMenoScorta();
+                break;
+        }
+
+        Prodotto p = gp.leggi(id);
+        if (p == null) {
+            txtArea.setText("Nessun prodotto trovato.");
+            return;
+        }
+
+        txtArea.setText(
+                "=== RISULTATO FILTRO ===" + "\n"
+                + "Filtro: " + filtro + "\n"
+                + "Nome: " + p.getNome() + "\n"
+                + "Prezzo acquisto: " + p.getPrezzoA() + " €\n"
+                + "Prezzo vendita: " + p.getPrezzoV() + " €\n"
+                + "Scorta: " + p.getScorta() + "\n"
+                + "Scorta minima: " + p.getScortaMin() + "\n"
+                + "Prodotti venduti: " + p.getProVenduti() + "\n"
+        );
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,7 +201,7 @@ public class FrameMagazzino extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCerca = new javax.swing.JButton();
         sfondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -232,8 +290,13 @@ public class FrameMagazzino extends javax.swing.JFrame {
         jLabel3.setText("AGGIUNGI E VENDI SCORTE");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 210, -1));
 
-        jButton1.setText("Cerca");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, 260, 30));
+        btnCerca.setText("Cerca");
+        btnCerca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCercaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 450, 260, 30));
 
         sfondo.setForeground(new java.awt.Color(255, 255, 255));
         sfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dangeloranabinimagazzino/sfondo.jpg"))); // NOI18N
@@ -287,16 +350,21 @@ public class FrameMagazzino extends javax.swing.JFrame {
         rimuoviScorta(n);
     }//GEN-LAST:event_btnRimuoviScortaActionPerformed
 
+    private void btnCercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCercaActionPerformed
+        // TODO add your handling code here:
+        cerca();
+    }//GEN-LAST:event_btnCercaActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAggiungiScorta;
+    private javax.swing.JButton btnCerca;
     private javax.swing.JButton btnRimuovi;
     private javax.swing.JButton btnRimuoviScorta;
     private javax.swing.JButton btnStatistica1;
     private javax.swing.JComboBox<String> cmbProdotti;
     private javax.swing.JComboBox<String> cmbStatistiche;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

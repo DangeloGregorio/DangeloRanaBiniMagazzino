@@ -24,7 +24,7 @@ public class FrameProdotto extends javax.swing.JFrame {
         k = new GestioneKey();
     }
 
-    private void btnCaricaActionPerformed(java.awt.event.ActionEvent evt) {
+   /** private void btnCaricaActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             String nome = txtNome.getText().trim();
             double prezzoA = Double.parseDouble(txtPrezzoA.getText());
