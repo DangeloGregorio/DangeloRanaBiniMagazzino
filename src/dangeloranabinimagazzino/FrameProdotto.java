@@ -4,6 +4,8 @@
  */
 package dangeloranabinimagazzino;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ranasgalla.niccolo
@@ -24,37 +26,14 @@ public class FrameProdotto extends javax.swing.JFrame {
         k = new GestioneKey();
     }
 
-   /** private void btnCaricaActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            String nome = txtNome.getText().trim();
-            double prezzoA = Double.parseDouble(txtPrezzoA.getText());
-            double prezzoV = Double.parseDouble(txtPrezzoV.getText());
-            int scorta = Integer.parseInt(txtScorta.getText());
-            int scortaMin = Integer.parseInt(txtScortaMin.getText());
-
-            int nuovoId = k.getNuovoId();
-
-            Prodotto p = new Prodotto(nuovoId, nome, prezzoA, prezzoV, scorta, scortaMin, 0);
-            gp.scrivi(p);
-
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Prodotto caricato con successo!\nID assegnato: " + nuovoId,
-                    "Successo", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-
-            // Pulisce i campi dopo il salvataggio
-            txtNome.setText("");
-            txtPrezzoA.setText("");
-            txtPrezzoV.setText("");
-            txtScorta.setText("");
-            txtScortaMin.setText("");
-
-        } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Errore: inserisci valori numerici validi.",
-                    "Errore", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
+    private void pulisciCampi() {
+        txtNome.setText("");
+        txtPrezzoA.setText("");
+        txtPrezzoV.setText("");
+        txtScorta.setText("");
+        txtScortaMin.setText("");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +48,12 @@ public class FrameProdotto extends javax.swing.JFrame {
         txtPrezzoV = new javax.swing.JTextField();
         txtScorta = new javax.swing.JTextField();
         txtScortaMin = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnApri = new javax.swing.JButton();
         btnCarica = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -80,25 +65,64 @@ public class FrameProdotto extends javax.swing.JFrame {
                 txtNomeActionPerformed(evt);
             }
         });
-        getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 140, -1));
+        getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 210, 30));
 
         txtPrezzoA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrezzoAActionPerformed(evt);
             }
         });
-        getContentPane().add(txtPrezzoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 140, -1));
-        getContentPane().add(txtPrezzoV, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 140, -1));
-        getContentPane().add(txtScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 140, -1));
-        getContentPane().add(txtScortaMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 140, -1));
+        getContentPane().add(txtPrezzoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 210, 30));
+        getContentPane().add(txtPrezzoV, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 210, 30));
+        getContentPane().add(txtScorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 210, 30));
+        getContentPane().add(txtScortaMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 210, 30));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Scorta Minima");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 130, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Nome");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 50, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Prezzo Acquisto");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 120, 30));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Prezzo Vendita");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 120, 30));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Scorta");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 70, 30));
+
+        btnApri.setBackground(new java.awt.Color(21, 21, 101));
+        btnApri.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        btnApri.setForeground(new java.awt.Color(255, 255, 255));
+        btnApri.setText("APRI MAGAZZINO!");
+        btnApri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApriActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnApri, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 850, 100));
+
+        btnCarica.setBackground(new java.awt.Color(21, 21, 101));
+        btnCarica.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnCarica.setForeground(new java.awt.Color(255, 255, 255));
         btnCarica.setText("Carica");
         btnCarica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCaricaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCarica, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, -1, -1));
+        getContentPane().add(btnCarica, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 210, 60));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dangeloranabinimagazzino/sfondo.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -114,48 +138,58 @@ public class FrameProdotto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrezzoAActionPerformed
 
+    private void btnApriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApriActionPerformed
+        // TODO add your handling code here:
+
+        FrameMagazzino magazzino = new FrameMagazzino();
+        magazzino.setVisible(true);
+    }//GEN-LAST:event_btnApriActionPerformed
+
     private void btnCaricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaricaActionPerformed
         // TODO add your handling code here:
-        String nome = txtNome.getText();
-        String num = txtPrezzoA.getText();
-        int prezzoA = Integer.parseInt(num);
-        num = txtPrezzoV.getText();
-        int prezzoV = Integer.parseInt(num);
-        num = txtScorta.getText();
-        int scorta = Integer.parseInt(num);
-        num = txtScortaMin.getText();
-        int scortaMin = Integer.parseInt(num);
+        try {
+            
+            String nome = txtNome.getText().trim();
+            if (nome.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Il nome non può essere vuoto");
+                return;
+            }
 
+            double prezzoA = Double.parseDouble(txtPrezzoA.getText());
+            double prezzoV = Double.parseDouble(txtPrezzoV.getText());
+            int scorta = Integer.parseInt(txtScorta.getText());
+            int scortaMin = Integer.parseInt(txtScortaMin.getText());
+
+            //Generazione nuovo ID tramite GestioneKey
+            int nuovoId = k.getNuovoId();
+
+            //Creazione oggetto Prodotto (inizialmente 0 prodotti venduti)
+            Prodotto p = new Prodotto(nuovoId, nome, prezzoA, prezzoV, scorta, scortaMin, 0);
+
+            //Scrittura su file tramite GestioneProdotto
+            gp.scrivi(p);
+
+            JOptionPane.showMessageDialog(this, "Prodotto caricato con successo! ID: " + nuovoId);
+            
+            //Pulizia campi
+            pulisciCampi();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,"inserire valori numerici validi nei campi prezzo e scorta.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "durante il salvataggio: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnCaricaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrameProdotto().setVisible(true));
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApri;
     private javax.swing.JButton btnCarica;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPrezzoA;
     private javax.swing.JTextField txtPrezzoV;

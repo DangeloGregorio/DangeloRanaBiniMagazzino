@@ -106,4 +106,22 @@ public class GestioneKey {
             System.out.println("errore scrittura key: " + e.getMessage());
         }
     }
+    public int getNuovoId() {
+        int maxId = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(nomeFile))) {
+            String riga;
+            while ((riga = br.readLine()) != null) {
+                String[] parti = riga.split(";");
+                if (parti.length >= 1) {
+                    int idCorrente = Integer.parseInt(parti[0]);
+                    if (idCorrente > maxId) {
+                        maxId = idCorrente;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("File key.txt non trovato, inizio da ID 1");
+        }
+        return maxId + 1;
+    }
 }
