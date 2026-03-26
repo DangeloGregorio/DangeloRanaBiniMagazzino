@@ -21,7 +21,7 @@ public class GestioneKey {
     private String nomeFile;
 
     public GestioneKey() {
-        this.nomeFile = "key.txt";
+        this.nomeFile = System.getProperty("user.dir") + "/key.txt";
     }
 
     public GestioneKey(String nomeFile) {

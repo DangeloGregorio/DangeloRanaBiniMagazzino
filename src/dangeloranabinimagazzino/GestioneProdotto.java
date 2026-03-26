@@ -17,12 +17,12 @@ public class GestioneProdotto {
     private static int lunghezzaNome = 30;
     private static int dimRecord = 4 + (lunghezzaNome * 2) + 8 + 8 + 4 + 4 + 4;
 
-    private String nomeFile = "prodotto.dat";
+    private String nomeFile = System.getProperty("user.dir") + "/prodotto.dat";
 
     private GestioneKey gestioneKey;
 
     public GestioneProdotto() {
-        this.gestioneKey = new GestioneKey("key.txt");
+        this.gestioneKey = new GestioneKey(System.getProperty("user.dir") + "/key.txt");
 
     }
 
